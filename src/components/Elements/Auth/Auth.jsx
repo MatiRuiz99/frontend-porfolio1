@@ -15,7 +15,6 @@ import LoadingSpinner from "../Loading/LoadingSpinner";
 import ErrorModal from "../Error/ErrorModal";
 import { useHttpClient } from "../Hook/http-hook";
 import { useNavigate } from "react-router-dom";
-import ImageUpload from "../ImageUpload/ImageUpload";
 
 const Auth = () => {
   const auth = useContext(AuthContext);
@@ -37,8 +36,12 @@ const Auth = () => {
     false
   );
 
+  const DEFAULT_IMAGE_URL =
+    "https://www.pngitem.com/pimgs/m/22-220721_circled-user-male-type-user-colorful-icon-png.png";
+
   const switchModeHandler = () => {
     if (!isLoginMode) {
+      // Switching to login mode
       setFormData(
         {
           ...formState.inputs,
@@ -48,6 +51,7 @@ const Auth = () => {
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
+      // Switching to signup mode
       setFormData(
         {
           ...formState.inputs,
@@ -56,8 +60,8 @@ const Auth = () => {
             isValid: false,
           },
           image: {
-            value: null,
-            isValid: false,
+            value: DEFAULT_IMAGE_URL,
+            isValid: true,
           },
         },
         false
@@ -85,16 +89,20 @@ const Auth = () => {
         auth.login(responseData.userId, responseData.token);
       } catch (err) {}
     } else {
+      // SIGNUP WITH JSON AND DEFAULT IMAGE
       try {
-        const formData = new FormData();
-        formData.append("email", formState.inputs.email.value);
-        formData.append("name", formState.inputs.name.value);
-        formData.append("password", formState.inputs.password.value);
-        formData.append("image", formState.inputs.image.value);
         const responseData = await sendRequest(
           `${import.meta.env.VITE_BACKEND_URL}/users/signup`,
           "POST",
-          formData
+          JSON.stringify({
+            name: formState.inputs.name.value,
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+            image: DEFAULT_IMAGE_URL,
+          }),
+          {
+            "Content-Type": "application/json",
+          }
         );
         auth.login(responseData.userId, responseData.token);
       } catch (err) {}
@@ -120,14 +128,9 @@ const Auth = () => {
               onInput={inputHandler}
             />
           )}
-          {!isLoginMode && (
-            <ImageUpload
-              center
-              id="image"
-              onInput={inputHandler}
-              errorText="please provide an image"
-            />
-          )}
+
+          {/* ⛔ Removed ImageUpload component */}
+
           <Input
             element="input"
             id="email"

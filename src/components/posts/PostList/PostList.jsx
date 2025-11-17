@@ -22,7 +22,7 @@ const PostList = (p) => {
         <PostItem
           key={post.id}
           id={post.id}
-          image={post.image}
+          image= "https://i.imgur.com/Q2IMBBU.jpeg"
           title={post.title}
           description={post.description}
           address={post.address}

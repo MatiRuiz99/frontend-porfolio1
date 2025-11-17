@@ -46,14 +46,16 @@ const ImageUpload = (props) => {
         id={props.id}
         ref={filePickerRef}
         style={{ display: "none" }}
-        type="file"
-        accept=".jpg,.png,.jpeg"
+        type="text"
+        accept="text"
         onChange={pickedHandler}
       />
       <div className={`image-upload ${props.center && "center"}`}>
         <div className="image-upload_preview">
           {previewUrl && <img src={previewUrl} alt="Preview" />}
-          {!previewUrl && <p>Please pick an image.</p>}
+          {!previewUrl && (
+            <p>Dejar en blanco! El host de api no acepta imagenes :(</p>
+          )}
         </div>
         <Button type="button" onClick={pickImageHandler}>
           PICK IMAGE

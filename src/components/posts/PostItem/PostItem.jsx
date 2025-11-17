@@ -79,7 +79,7 @@ const PostItem = (p) => {
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="post-item_image">
             <img
-              src={`${import.meta.env.VITE_BACKENDIMAGE_URL}/${p.image}`}
+              src="https://i.imgur.com/Q2IMBBU.jpeg"
               alt={p.title}
             />
           </div>

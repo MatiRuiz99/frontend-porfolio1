@@ -31,8 +31,8 @@ const NewPost = () => {
         isValid: false,
       },
       image: {
-        value: null,
-        isValid: false,
+        value: "https://i.imgur.com/Q2IMBBU.jpeg",
+        isValid: true,
       },
     },
     false
@@ -48,7 +48,7 @@ const NewPost = () => {
       formData.append("description", formState.inputs.description.value);
       formData.append("address", formState.inputs.address.value);
       formData.append("creator", auth.userId);
-      formData.append("image", formState.inputs.image.value);
+      formData.append("image", "https://i.imgur.com/Q2IMBBU.jpeg");
       await sendRequest(
         `${import.meta.env.VITE_BACKEND_URL}/posts`,
         "POST",
@@ -89,11 +89,11 @@ const NewPost = () => {
           errorText="Please enter a valid description"
           onInput={inputHandler}
         />
-        <ImageUpload
+        {/* <ImageUpload
           id="image"
           onInput={inputHandler}
           errorText="please provide an image"
-        />
+        /> */}
         <Button type="submit" disabled={!formState.isValid}>
           {" "}
           POST{" "}
