@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frontend</title>
+  </head>
+  <body>
+    <div id="backdrop-hook"></div>
+    <div id="modal-hook"></div>
+    <div id="side-menu-hook"></div>
+    <div id="root"></div>
+    <script type="module">
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${
+        import.meta.env.VITE_GOOGLE_API_KEY
+      }`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    </script>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
